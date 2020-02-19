@@ -1,0 +1,54 @@
+
+<div>
+    User name : <%= @user.email %>
+</div>
+
+<table>
+    <thead>
+      <tr>
+        <th>Follower - <%= @follower_count %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @follower.each do |f| %>
+        <tr>
+          <td><%= f.email rescue ''%></td>
+          <% if current_user.followers.pluck(:follower_id).include?(f.id) %>
+                <td><%= link_to "unfollow" , '/followers/unfollow/'+(f.id ).to_s, data: {id: (f.id )}, method: :post %></td>
+         
+          <% else %>
+          <td><%= link_to "follow" , '/followers/follow/'+(f.id ).to_s, data: {id: (f.id )}, method: :post %></td>
+  
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>Following- <%= @following_count %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @following.each do |f| %>
+        <tr>
+          <td><%= f.email rescue ''%></td>
+          <% if current_user.followers.pluck(:follower_id).include?(f.id) %>
+                <td><%= link_to "unfollow" , '/followers/unfollow/'+(f.id ).to_s, data: {id: (f.id )}, method: :post %></td>
+         
+          <% else %>
+          <td><%= link_to "follow" , '/followers/follow/'+(f.id ).to_s, data: {id: (f.id )}, method: :post %></td>
+  
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  

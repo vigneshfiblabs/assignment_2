@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tweets</h1>
-
+<h1>Twitter</h1>
+<%= render 'form', tweet: @tweet %>
 <table>
   <thead>
     <tr>
-      <th>Post</th>
+      <th>Your Follower and Following Post</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,14 +14,47 @@
     <% @tweets.each do |tweet| %>
       <tr>
         <td><%= tweet.post %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+   
+   <td> <%= link_to tweet.user.email , '/users/profile/'+current_user.id.to_s, method: :get %> </td>
+        <% if current_user.followers.pluck(:follower_id).include?(tweet.user.id) %>
+              <td><%= link_to "unfollow" , '/followers/unfollow/'+(tweet.user.id ).to_s, data: {id: (tweet.user.id )}, method: :post %></td>
+        <% elsif current_user.id == tweet.user.id %>
+        <td>Self post</td>
+         
+        <% else %>
+        <td><%= link_to "follow" , '/followers/follow/'+(tweet.user.id ).to_s, data: {id: (tweet.user.id )}, method: :post %></td>
+
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<table>
+  <thead>
+    <tr>
+      <th>All Post</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-<%= link_to 'New Tweet', new_tweet_path %>
+  <tbody>
+    <% @tweets_all.each do |tweet| %>
+      <tr>
+        <td><%= tweet.post %></td>
+   
+   <td> <%= link_to tweet.user.email , '/users/profile/'+current_user.id.to_s, method: :get %> </td>
+        <% if current_user.followers.pluck(:follower_id).include?(tweet.user.id) %>
+              <td><%= link_to "unfollow" , '/followers/unfollow/'+(tweet.user.id ).to_s, data: {id: (tweet.user.id )}, method: :post %></td>
+        <% elsif current_user.id == tweet.user.id %>
+        <td>Self post</td>
+         
+        <% else %>
+        <td><%= link_to "follow" , '/followers/follow/'+(tweet.user.id ).to_s, data: {id: (tweet.user.id )}, method: :post %></td>
+
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
