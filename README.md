@@ -1,0 +1,3 @@
+Rails 
+ruby
+mysql2
