@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+ruby version:<=6
+my sql2
+every user can follow and unfollow the other user from the post of the tweets
+every user can follow the other user from the profile page also
+all are sorted under the chronological order
+user login and authentication are verified using the devise
+user can see the followers post at the top and the global post at the bottom
+on clicking every email of the post can see the profile
